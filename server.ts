@@ -21,8 +21,9 @@ app.use(function(req, res, next) {
     next();
   });
   var mongoConnection =mongoose
+ 
   .connect(uri, {
-    useNewUrlParser: true,
+    useNewUrlParser: true, useUnifiedTopology: true
   })
   .then(() => console.log("Database connected!"))
   .catch(err => console.log(err));
