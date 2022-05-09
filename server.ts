@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 dotenv.config();
-const uri = "mongodb+srv://USERNAME:PASSWORD@CLUSTER_NAME.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(cors());
