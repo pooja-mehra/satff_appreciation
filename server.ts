@@ -8,6 +8,8 @@ var bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 dotenv.config();
 const uri = process.env.MONGODB_URI;
+const host = '0.0.0.0';
+const port = process.env.PORT || 3000;
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(cors());
@@ -75,6 +77,6 @@ app.post('/submit', async (req, res) =>{
     })
    
 
-var server = app.listen(8080, function () {
+var server = app.listen(port,host, function () {
     console.log('Node server is running..');
 });
