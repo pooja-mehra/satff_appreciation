@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 dotenv.config();
+const uri = "mongodb+srv://USERNAME:PASSWORD@CLUSTER_NAME.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority";
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(cors());
@@ -20,7 +21,7 @@ app.use(function(req, res, next) {
     next();
   });
   var mongoConnection =mongoose
-  .connect('mongodb://localhost:27017/eCard', {
+  .connect(uri, {
     useNewUrlParser: true,
   })
   .then(() => console.log("Database connected!"))
