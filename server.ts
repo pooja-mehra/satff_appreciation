@@ -10,6 +10,9 @@ dotenv.config();
 const uri = process.env.MONGODB_URI;
 const host = '0.0.0.0';
 const port = process.env.PORT || 8080;
+const options = {
+    root: path.join(__dirname)
+};
 app.use(cookieParser());
 app.use(express.static('public'))
 app.use(cors());
@@ -40,10 +43,6 @@ const staffAppreciation = mongoose.model("staff_appreciation", schema)
 
 // define routes here..
 app.get('/', async (req, res) =>{
-    var options = {
-        root: path.join(__dirname)
-    };
-   
     var fileName = 'index.html';
    
     res.sendFile(fileName, options, async (err) =>{
@@ -72,8 +71,7 @@ app.get('/send', async (req, res) =>{
 });
 
 app.get('/getAll', async (req, res) =>{
-    let result = await staffAppreciation.find({});
-    console.log(result)
+    let result = await staffAppreciation.find({}).sort({'_id': -1}) ;
     res.send(result)
 });
 
@@ -90,11 +88,7 @@ app.post('/submit', async (req, res) =>{
         from: req.body.from
       });
   
-      const saveMessage = await message.save();
-      var options = {
-        root: path.join(__dirname)
-    };
-   
+    const saveMessage = await message.save();
     var fileName = 'index.html';
    
     res.sendFile(fileName, options, async (err) =>{
