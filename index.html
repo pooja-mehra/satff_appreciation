@@ -1,16 +1,42 @@
 <!DOCTYPE html>
+    <head>
+    </head>
+    <body>
+        <div class="greet">
+            <form action="/send" method="get">
+            <input name="sendWish" id="sendWish" type="submit" value="Send a Wish">
+            </form>
+            </div>
+    <h2 class="speach">If you are reading this it must be your birthday</h2>
+    <h1 class="speach">HAPPY BIRTHDAY</h1>
+    <h4 class="new">Here are a couple of birthday wishes</h4>
+    <hr>
+    <h1>WISHES</h1>
+    <div id="demo"></div>
+    <link rel="stylesheet" type="text/css" href="birthday.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"> </script>
+    <script>
+        
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <form action="/submit" method="post">
-        To: <input name="to" type="text" /> <br />
-        Message: <input name="message" type="text" /> <br />
-        From: <input name="from" type="text" /> <br />
-        <input type="submit" />
-    </form>
-</body>
+         $(document).ready(function(){
+            $.ajax({
+            url:"/getAll",
+            type: "get",
+            success: function(result) {
+                let x=""
+                if(result && result.length>0){
+                var y = result.length;
+               
+                for (i=0; i<y; i++){
+                    x = x + "<h3" + ">To: "+result[i]["to"] + "</h3" + ">";
+                    x = x + "<h5" + ">Wish: "+ result[i]["message"] + "</h5" + ">";
+                    x = x + "<h3" + ">From🥳: "+result[i]["from"] + "</h3" + ">";
+                }
+                }
+                document.getElementById("demo").innerHTML = x;
+            }                
+            });
+        });
+    </script>
+    </body>
 </html>

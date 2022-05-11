@@ -1,0 +1,32 @@
+.greet{
+    text-align: center;
+ }
+ 
+ .speach{
+     color: blue;
+     text-align: center;
+ }
+ 
+ .new{
+     color: black;
+     text-align: center;
+ }
+ 
+ 
+ body{
+     background-color: rgb(233, 66, 94);
+ }
+ 
+ h3{
+     color: blueviolet;
+     text-align: center;
+ }
+ 
+ h5{
+     color: yellow;
+     text-align: center;
+ }
+ 
+ h1{
+     text-align: center;
+ }
