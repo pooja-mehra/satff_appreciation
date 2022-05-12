@@ -13,9 +13,6 @@
         <a class="nav-link active" id="All" data-toggle="tab" href="All" role="tab" aria-controls="All" aria-selected="true">All</a>
       </li>
     <li class="nav-item">
-      <a class="nav-link active" id="Kit" data-toggle="tab" href="Kit" role="tab" aria-controls="Kit" aria-selected="true">Mr.Kit</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" id="Kamath" data-toggle="tab" href="Kamath" role="tab" aria-controls="Kamath" aria-selected="false">Ms.Kamath</a>
     </li>
     <li class="nav-item">
@@ -24,14 +21,21 @@
     <li class="nav-item">
       <a class="nav-link" id="Hoffman" data-toggle="tab" href="Hoffman" role="tab" aria-controls="Hoffman" aria-selected="false">Mr.Hoffman</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="Lacy" data-toggle="tab" href="Lacy" role="tab" aria-controls="Lacy" aria-selected="false">Ms.Lacy</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="Oani" data-toggle="tab" href="Oani" role="tab" aria-controls="Oani" aria-selected="false">Ms.Oani</a>
+      </li>
   </ul>
   <!-- Tab panes -->
   <div class="tab-content" id="tab-content">
     <div class="tab-pane active" id="All" role="tabpanel" aria-labelledby="All"></div>
-    <div class="tab-pane" id="Kit" role="tabpanel" aria-labelledby="Kit"></div>
     <div class="tab-pane" id="Kamath" role="tabpanel" aria-labelledby="Kamath"></div>
     <div class="tab-pane" id="Zhu" role="tabpanel" aria-labelledby="Zhu"></div>
     <div class="tab-pane" id="Hoffman" role="tabpanel" aria-labelledby="Hoffman"></div>
+    <div class="tab-pane" id="Lacy" role="tabpanel" aria-labelledby="Lacy"></div>
+    <div class="tab-pane" id="Oani" role="tabpanel" aria-labelledby="Oani"></div>
   </div>
   
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -55,7 +59,7 @@
                 for (i=0; i<y; i++){
                     x = x +"<div class='jumbotron'>";
                     x = x + "<h3 class='display-4'>"+result[i]["to"] + "</h3>";
-                    x = x + "<p class='lead'" + ">"+ result[i]["message"] + "</p>";
+                    x = x + "<p class='lead'>"+ result[i]["message"] + "</p>";
                     x = x+ "<hr class='my-4'>";
                     x = x + "<p>"+result[i]["from"] + "</p>";
                     x= x+"</div>";
