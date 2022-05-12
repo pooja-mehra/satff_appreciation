@@ -3,10 +3,10 @@
     </head>
     <body>
         <div class="greet">
-            <form action="/send" method="get">
-            <input name="sendWish" id="sendWish" type="submit" value="Send a Wish">
-            </form>
-            </div>
+            
+            <input name="sendWish" id="sendWish" type="button" value="Send a Wish">
+           
+        </div>
     <h2 class="speach">If you are reading this it must be your birthday</h2>
     <h1 class="speach">HAPPY BIRTHDAY</h1>
     <h4 class="new">Here are a couple of birthday wishes</h4>
@@ -16,6 +16,10 @@
     <link rel="stylesheet" type="text/css" href="birthday.css">
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type='text/javascript'></script> </script>
     <script>
+        $('#sendWish').click(function() {
+            window.location.href = '/send';
+            return false;
+            });
         $(document).ready(function(){
             $.ajax({
             url:"/getAll",

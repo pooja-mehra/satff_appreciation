@@ -89,15 +89,7 @@ app.post('/submit', async (req, res) =>{
       });
   
     const saveMessage = await message.save();
-    var fileName = 'index.html';
-   
-    res.sendFile(fileName, options, async (err) =>{
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('done');
-        }
-    });
+    res.json('done')
     })
    
 
