@@ -18,7 +18,6 @@ app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(function(req, res, next) {
-    console.log(req.headers);
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", 
                "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -75,9 +74,14 @@ app.get('/getAll', async (req, res) =>{
     res.send(result)
 });
 
-app.get('/getByName', async (req, res) =>{
-    let result = await staffAppreciation.find({ to: 'wqjd'})
-        res.json(result)
+app.get('/get', async (req, res) =>{
+    let result
+    if(req.query.name == 'All'){
+        result = await staffAppreciation.find({}).sort({'_id': -1})
+    } else{
+        result = await staffAppreciation.find({ to: { "$regex": req.query.name+'$' }}).sort({'_id': -1})
+    }
+    res.json(result)
 });
 
 app.post('/submit', async (req, res) =>{

@@ -13,11 +13,16 @@
         </div>
         <form name="sendWish" id="sendWish" action="" >
             <label for="to">To:</label><br>
-            <input name="to" type="text" value="" required maxlength="17" /> <br />
+            <select id = "to" name="to" >  
+                <option>Mr.Kit</option>  
+                <option>Ms.Kamath</option>  
+                <option>Ms.Zhu</option>  
+                <option>Mr.Hoffman</option>  
+                </select>  <br />
             <label for="lname">Message:</label><br>
-            <textarea type="text" id="message" name="message" value="" rows="10" cols="50" required maxlength="200"></textarea><br><br>
+            <textarea type="text" id="message" name="message" value="" rows="10" cols="50" required maxlength="150"></textarea><br><br>
             <label for="to">From:</label><br>
-            <input name="from" type="text" value="" required maxlength="17"/> <br />
+            <input name="from" type="text" value="" required maxlength="15"/> <br />
             <input type="submit" name="submit" class="button" id="submit_btn" value="Send">
         </form>
         <script>

@@ -14,7 +14,7 @@
  
  
  body{
-     background-color: rgb(233, 66, 94);
+     background-color: rgb(230, 234, 236);
  }
  
  h3{
@@ -22,11 +22,12 @@
      text-align: center;
  }
  
- h5{
-     color: yellow;
+ p{
+     color: rgb(0, 17, 255);
      text-align: center;
  }
  
  h1{
      text-align: center;
  }
+ 

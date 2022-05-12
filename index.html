@@ -3,23 +3,74 @@
     </head>
     <body>
         <div class="greet">
-            
             <input name="sendWish" id="sendWish" type="button" value="Send a Wish">
-           
         </div>
-    <h2 class="speach">If you are reading this it must be your birthday</h2>
-    <h1 class="speach">HAPPY BIRTHDAY</h1>
-    <h4 class="new">Here are a couple of birthday wishes</h4>
+    <h2 class="speach">Happy Teacher's Appreciation Week!</h2>
+    <h1 class="speach">We Appreciate You!</h1>
     <hr>
-    <h1>WISHES</h1>
-    <div id="demo"></div>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="All" data-toggle="tab" href="All" role="tab" aria-controls="All" aria-selected="true">All</a>
+      </li>
+    <li class="nav-item">
+      <a class="nav-link active" id="Kit" data-toggle="tab" href="Kit" role="tab" aria-controls="Kit" aria-selected="true">Mr.Kit</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="Kamath" data-toggle="tab" href="Kamath" role="tab" aria-controls="Kamath" aria-selected="false">Ms.Kamath</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="Zhu" data-toggle="tab" href="Zhu" role="tab" aria-controls="Zhu" aria-selected="false">Ms.Zhu</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="Hoffman" data-toggle="tab" href="Hoffman" role="tab" aria-controls="Hoffman" aria-selected="false">Mr.Hoffman</a>
+    </li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content" id="tab-content">
+    <div class="tab-pane active" id="All" role="tabpanel" aria-labelledby="All"></div>
+    <div class="tab-pane" id="Kit" role="tabpanel" aria-labelledby="Kit"></div>
+    <div class="tab-pane" id="Kamath" role="tabpanel" aria-labelledby="Kamath"></div>
+    <div class="tab-pane" id="Zhu" role="tabpanel" aria-labelledby="Zhu"></div>
+    <div class="tab-pane" id="Hoffman" role="tabpanel" aria-labelledby="Hoffman"></div>
+  </div>
+  
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="birthday.css">
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type='text/javascript'></script> </script>
     <script>
+        $("ul li a").click(function (tip) {
+        tip.preventDefault();
+        var sectionID = tip.currentTarget.id;
+        $.ajax({
+            url:"/get",
+            type: "get",
+            data:{name:sectionID},
+            success: function(result) {
+                let x=""
+                if(result && result.length>0){
+                var y = result.length;
+               
+                for (i=0; i<y; i++){
+                    x = x +"<div class='jumbotron'>";
+                    x = x + "<h3 class='display-4'>"+result[i]["to"] + "</h3>";
+                    x = x + "<p class='lead'" + ">"+ result[i]["message"] + "</p>";
+                    x = x+ "<hr class='my-4'>";
+                    x = x + "<p>"+result[i]["from"] + "</p>";
+                    x= x+"</div>";
+                }
+                }
+                document.getElementById("tab-content").innerHTML = x;
+            }                
+            });
+        });
+    
         $('#sendWish').click(function() {
             window.location.href = '/send';
             return false;
             });
+            
         $(document).ready(function(){
             $.ajax({
             url:"/getAll",
@@ -28,14 +79,16 @@
                 let x=""
                 if(result && result.length>0){
                 var y = result.length;
-               
                 for (i=0; i<y; i++){
-                    x = x + "<h3" + ">To: "+result[i]["to"] + "</h3" + ">";
-                    x = x + "<h5" + ">Wish: "+ result[i]["message"] + "</h5" + ">";
-                    x = x + "<h3" + ">From🥳: "+result[i]["from"] + "</h3" + ">";
+                    x = x +"<div class='jumbotron'>";
+                    x = x + "<h3 class='display-4'>"+result[i]["to"] + "</h3>";
+                    x = x + "<p class='lead'" + ">"+ result[i]["message"] + "</p>";
+                    x = x+ "<hr class='my-4'>";
+                    x = x + "<p>"+result[i]["from"] + "</p>";
+                    x= x+"</div>";
                 }
                 }
-                document.getElementById("demo").innerHTML = x;
+                document.getElementById("tab-content").innerHTML = x;
             }                
             });
         });
