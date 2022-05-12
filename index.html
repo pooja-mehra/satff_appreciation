@@ -3,7 +3,7 @@
     </head>
     <body>
         <div class="greet">
-            <input name="sendWish" id="sendWish" type="button" value="Send a Wish">
+            <input type="button" class="btn btn-primary" name="sendWish" id="sendWish" value="Send a Wish" />
         </div>
     <h2 class="speach">Happy Teacher's Appreciation Week!</h2>
     <h1 class="speach">We Appreciate You!</h1>
@@ -70,7 +70,7 @@
             window.location.href = '/send';
             return false;
             });
-            
+
         $(document).ready(function(){
             $.ajax({
             url:"/getAll",
