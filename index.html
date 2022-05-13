@@ -37,12 +37,12 @@
     <div class="tab-pane" id="Lacy" role="tabpanel" aria-labelledby="Lacy"></div>
     <div class="tab-pane" id="Oani" role="tabpanel" aria-labelledby="Oani"></div>
   </div>
-  
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="birthday.css">
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type='text/javascript'></script> </script>
     <script>
         $("ul li a").click(function (tip) {
         tip.preventDefault();
@@ -52,26 +52,7 @@
             type: "get",
             data:{name:sectionID},
             success: function(result) {
-                let x=""
-                if(result && result.length>0){
-                var y = result.length;
-               
-                for (i=0; i<y; i++){
-                    if(i==0){
-                        x= x+ "<div class='row'>"
-                    }
-                    x = x +"<div class='col-md-3 col-md-4'>"
-                    x = x +"<div class='card' style='width: 30rem; border:solid'>";
-                    x= x+ "<div class='card-body'>"
-                    x = x + "<h5 class='card-title'>"+ 'To: '+ result[i]["to"] + "</h5>";
-                    x = x + "<h6 class='card-subtitle mb-2 text-muted'>"+'From: '+ result[i]["from"] + "</h6>";
-                    x = x + "<p class='card-text'>"+result[i]["message"] + "</p>";
-                    x= x+"</div> </div> </div>";
-                    }
-                    if(i==y-1){
-                        x=x+"</div>"
-                    }
-                }
+                x = getLayout(result)
                 document.getElementById("tab-content").innerHTML = x;
             }                
             });
@@ -87,29 +68,33 @@
             url:"/getAll",
             type: "get",
             success: function(result) {
-                let x=""
-                if(result && result.length>0){
-                var y = result.length;
+                x = getLayout(result)
+                document.getElementById("tab-content").innerHTML = x;
+            }                
+            });
+        });
+        function getLayout(result){
+            let x=""
+            if(result && result.length>0){
+            var y = result.length;
                 for (i=0; i<y; i++){
                     if(i==0){
                         x= x+ "<div class='row'>"
                     }
-                    x = x +"<div class='col-md-3 col-md-4'>"
+                    x = x +"<div class='col-sm-3'>"
                     x = x +"<div class='card' style='width: 30rem; border:solid'>";
                     x= x+ "<div class='card-body'>"
                     x = x + "<h5 class='card-title'>"+ 'To: '+ result[i]["to"] + "</h5>";
                     x = x + "<h6 class='card-subtitle mb-2 text-muted'>"+'From: '+ result[i]["from"] + "</h6>";
                     x = x + "<p class='card-text'>"+result[i]["message"] + "</p>";
                     x= x+"</div> </div> </div>";
-                    }
                     if(i==y-1){
                         x=x+"</div>"
                     }
                 }
-                document.getElementById("tab-content").innerHTML = x;
-            }                
-            });
-        });
+                    
+            } return x
+        }
     </script>
     </body>
 </html>
