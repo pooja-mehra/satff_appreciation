@@ -57,13 +57,20 @@
                 var y = result.length;
                
                 for (i=0; i<y; i++){
-                    x = x +"<div class='jumbotron'>";
-                    x = x + "<h3 class='display-4'>"+result[i]["to"] + "</h3>";
-                    x = x + "<p class='lead'>"+ result[i]["message"] + "</p>";
-                    x = x+ "<hr class='my-4'>";
-                    x = x + "<p>"+result[i]["from"] + "</p>";
-                    x= x+"</div>";
-                }
+                    if(i==0){
+                        x= x+ "<div class='row'>"
+                    }
+                    x = x +"<div class='col-md-3 col-md-4'>"
+                    x = x +"<div class='card' style='width: 30rem; border:solid'>";
+                    x= x+ "<div class='card-body'>"
+                    x = x + "<h5 class='card-title'>"+ 'To: '+ result[i]["to"] + "</h5>";
+                    x = x + "<h6 class='card-subtitle mb-2 text-muted'>"+'From: '+ result[i]["from"] + "</h6>";
+                    x = x + "<p class='card-text'>"+result[i]["message"] + "</p>";
+                    x= x+"</div> </div> </div>";
+                    }
+                    if(i==y-1){
+                        x=x+"</div>"
+                    }
                 }
                 document.getElementById("tab-content").innerHTML = x;
             }                
@@ -84,13 +91,20 @@
                 if(result && result.length>0){
                 var y = result.length;
                 for (i=0; i<y; i++){
-                    x = x +"<div class='jumbotron'>";
-                    x = x + "<h3 class='display-4'>"+result[i]["to"] + "</h3>";
-                    x = x + "<p class='lead'" + ">"+ result[i]["message"] + "</p>";
-                    x = x+ "<hr class='my-4'>";
-                    x = x + "<p>"+result[i]["from"] + "</p>";
-                    x= x+"</div>";
-                }
+                    if(i==0){
+                        x= x+ "<div class='row'>"
+                    }
+                    x = x +"<div class='col-md-3 col-md-4'>"
+                    x = x +"<div class='card' style='width: 30rem; border:solid'>";
+                    x= x+ "<div class='card-body'>"
+                    x = x + "<h5 class='card-title'>"+ 'To: '+ result[i]["to"] + "</h5>";
+                    x = x + "<h6 class='card-subtitle mb-2 text-muted'>"+'From: '+ result[i]["from"] + "</h6>";
+                    x = x + "<p class='card-text'>"+result[i]["message"] + "</p>";
+                    x= x+"</div> </div> </div>";
+                    }
+                    if(i==y-1){
+                        x=x+"</div>"
+                    }
                 }
                 document.getElementById("tab-content").innerHTML = x;
             }                
