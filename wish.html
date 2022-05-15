@@ -14,28 +14,92 @@
         <div class="jumbotron">
         <form name="sendWish" class="sendWish" id="sendWish" action="" >
             <label for="to">To:</label>
-            <select id = "to" name="to" >   
-                <option>Ms.Kamath</option>  
-                <option>Ms.Zhu</option>  
-                <option>Mr.Hoffman</option> 
-                <option>Ms.Lacy</option>
-                <option>Ms.Oani</option>  
-                </select>  <br /><br /><br />
+            <select id = "to" class="to" name="to" required>     
+                </select>  <br /> <br />
             <label for="message">Message:</label><br>
-            <textarea type="text" id="message" name="message" value="" rows="10" cols="50" required maxlength="150">
-            </textarea><br><br>
-            <label for="to">From:</label>
-            <input name="from" type="text" value="" required maxlength="15"/> <br /><br />
-            <input type="submit" name="submit" value="Send" class="btn btn-primary" /> 
+            <textarea type="text" id="message" name="message" value="" rows="10" cols="50" maxlength="150" required></textarea><br><br>
+            <label for="from">From:</label>
+            <input name="from" type="text" value="" maxlength="15" required/> <br /><br />
+            <input type="submit" name="submit" value="Send" class="btn btn-success" /> 
         </form>
+        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="newTeacher" data-target="#myModal">Add Teacher</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Teacher</h4>
+              </div>
+              <div class="modal-body">
+                  <form  id="newTeacherForm">
+                    <div id="inputFormRow">
+                    <input
+                    type="radio"
+                    class="male"
+                    value="Mr."
+                    id="male"
+                    name="title"
+                    checked 
+                    />Mr.
+                    <input
+                    type="radio"
+                    class="female"
+                    value="Ms."
+                    name="title"
+                    id="female"
+                    />Ms.
+                    <br/>
+                    <label for="name">Name:</label>
+                    <input
+                    id="name"
+                    class="name"
+                    type="text"
+                    required
+                    />
+                    </div>
+                <div class="modal-footer">
+                <input type="submit" class="btn btn-success" id="newTeacher"  class="newTeacher" value="Save"/>
+                <button type="button" class="btn btn-default" id="btnCloseIt" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
     </div>
-    </div>
+    
         <script>
+            var $dropdown = $("#to");
+            var newTeacher =''
+            $(document).ready(function(){
+                $("#newTeacher").prop("disabled",false);
+                if(localStorage.getItem('newTeacher')){
+                    $("#newTeacher").prop("disabled",true);
+                    newTeacher = localStorage.getItem('newTeacher')
+                }
+                $.ajax({
+                    url:"/getNames",
+                    type:"get",
+                    success:function(result){
+                        $.each(result, function(i) {
+                        $dropdown.append($("<option />").val(result[i]).text(result[i]));
+                    });
+                    }
+                })
+                if(newTeacher != ''){
+                    $dropdown.append($("<option />").val(newTeacher).text(newTeacher));
+                    localStorage.removeItem('newTeacher');
+                }
+                this.reset();
+            })
+
             $('#home').click(function() {
             window.location.href = '/';
-            return false;
             });
-            $( "form" ).on( "submit", function(e) {
+
+            $( "#sendWish" ).on( "submit", function(e) {
                 var dataString = $(this).serialize();
                 $.ajax({
                 url:"/submit",
@@ -47,7 +111,18 @@
                                 
                 });
                 this.reset();
-                return false;
+            });
+
+            $( "#newTeacherForm" ).on( "submit", function(e) {
+                var dataString = $(this).serialize();
+                var title = dataString.replace('title=','')
+                var name = $('#name').val();
+                var options = $('#to option');
+                var values = $.map(options ,function(option) {
+                    if(option.value == title+name)
+                    this.reset();
+                });
+                localStorage.setItem('newTeacher',title+name)
             });
         </script>
     </body>
