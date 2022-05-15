@@ -30,4 +30,9 @@
  h6{
      text-align: center;
  }
- 
+
+ .newTeacher{
+      margin-left: 40%;
+      border:solid;
+      width:20%;
+  }

@@ -8,34 +8,14 @@
     <h2 class="speach">Happy Teacher's Appreciation Week!</h2>
     <h1 class="speach">We Appreciate You!</h1>
     <hr>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="All" data-toggle="tab" href="All" role="tab" aria-controls="All" aria-selected="true">All</a>
-      </li>
-    <li class="nav-item">
-      <a class="nav-link" id="Kamath" data-toggle="tab" href="Kamath" role="tab" aria-controls="Kamath" aria-selected="false">Ms.Kamath</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="Zhu" data-toggle="tab" href="Zhu" role="tab" aria-controls="Zhu" aria-selected="false">Ms.Zhu</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="Hoffman" data-toggle="tab" href="Hoffman" role="tab" aria-controls="Hoffman" aria-selected="false">Mr.Hoffman</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="Lacy" data-toggle="tab" href="Lacy" role="tab" aria-controls="Lacy" aria-selected="false">Ms.Lacy</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="Oani" data-toggle="tab" href="Oani" role="tab" aria-controls="Oani" aria-selected="false">Ms.Oani</a>
-      </li>
-  </ul>
+    </ul>
   <!-- Tab panes -->
   <div class="tab-content" id="tab-content">
-    <div class="tab-pane active" id="All" role="tabpanel" aria-labelledby="All"></div>
-    <div class="tab-pane" id="Kamath" role="tabpanel" aria-labelledby="Kamath"></div>
-    <div class="tab-pane" id="Zhu" role="tabpanel" aria-labelledby="Zhu"></div>
-    <div class="tab-pane" id="Hoffman" role="tabpanel" aria-labelledby="Hoffman"></div>
-    <div class="tab-pane" id="Lacy" role="tabpanel" aria-labelledby="Lacy"></div>
-    <div class="tab-pane" id="Oani" role="tabpanel" aria-labelledby="Oani"></div>
+    <div class="tab-pane active" id="All" role="tabpanel" aria-labelledby="All">All</div>
   </div>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +24,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="birthday.css">
     <script>
-        $("ul li a").click(function (tip) {
+        var tabs =[]
+        $(".nav-tabs").on("click", "a", function (tip) {
         tip.preventDefault();
         var sectionID = tip.currentTarget.id;
         $.ajax({
@@ -56,11 +37,11 @@
                 document.getElementById("tab-content").innerHTML = x;
             }                
             });
+            $(this).tab('show');
         });
     
         $('#sendWish').click(function() {
             window.location.href = '/send';
-            return false;
             });
 
         $(document).ready(function(){
@@ -68,11 +49,27 @@
             url:"/getAll",
             type: "get",
             success: function(result) {
+                getTabs(result)
                 x = getLayout(result)
                 document.getElementById("tab-content").innerHTML = x;
             }                
             });
+           
         });
+        function getTabs(result){    
+           
+            if(result && result.length>0){
+                result.filter((a,i)=>{
+                    if(!tabs.includes(result[i]["to"])){
+                        tabs.push(result[i]["to"])
+                    }
+            })
+            for (i=0; i<tabs.length; i++){
+                $("#myTab").append(
+                    '<li class="nav-item"><a class="nav-link" id="' +tabs[i] +'" data-toggle="tab" href="' +tabs[i] +'" role="tab" aria-controls="' +tabs[i] +'" aria-selected="false">'+tabs[i]+'</a></li>')
+                }
+            }
+        }
         function getLayout(result){
             let x=""
             if(result && result.length>0){

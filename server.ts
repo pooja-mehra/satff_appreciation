@@ -69,6 +69,11 @@ app.get('/send', async (req, res) =>{
     });
 });
 
+app.get('/getNames', async (req, res) =>{
+  let result = await staffAppreciation.find().distinct('to')
+  res.json(result)
+});
+
 app.get('/getAll', async (req, res) =>{
     let result = await staffAppreciation.find({}).sort({'_id': -1}) ;
     res.send(result)
@@ -79,7 +84,7 @@ app.get('/get', async (req, res) =>{
     if(req.query.name == 'All'){
         result = await staffAppreciation.find({}).sort({'_id': -1})
     } else{
-        result = await staffAppreciation.find({ to: { "$regex": req.query.name+'$' }}).sort({'_id': -1})
+        result = await staffAppreciation.find({ to: req.query.name}).sort({'_id': -1})
     }
     res.json(result)
 });
