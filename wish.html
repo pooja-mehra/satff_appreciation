@@ -10,7 +10,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <div class="greet">
             <input type="button" class="btn btn-primary" name="home" id="home" value="Home" /> 
-            <br /><br /><br />
+            <br /><br />
+            <div id = "alert_placeholder"></div>
+            <br /> <br />
         <div class="jumbotron">
         <form name="sendWish" class="sendWish" id="sendWish" action="" >
             <label for="to">To:</label>
@@ -100,18 +102,30 @@
             });
 
             $( "#sendWish" ).on( "submit", function(e) {
+                e.preventDefault();
                 var dataString = $(this).serialize();
                 $.ajax({
                 url:"/submit",
                 type: "post",
                 data: dataString,
                 success: function(result) {
-                    alert('message sent!')
+                    showAlert.warning('Message Sent!');
+                    closeAlert()
                 }
-                                
                 });
                 this.reset();
             });
+            
+            function closeAlert(){
+            window.setTimeout(function () {
+            $("#alertBox").fadeOut(300)
+            }, 3000);
+            } 
+
+            showAlert = function() {}
+            showAlert.warning = function(alert) {
+            $('#alert_placeholder').html('<div id ="alertBox" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>'+alert+'</span></div>')
+            }
 
             $( "#newTeacherForm" ).on( "submit", function(e) {
                 var dataString = $(this).serialize();
