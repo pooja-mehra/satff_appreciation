@@ -19,7 +19,7 @@
             <label for="message">Message:</label><br>
             <textarea type="text" id="message" name="message" value="" rows="10" cols="50" maxlength="150" required></textarea><br><br>
             <label for="from">From:</label>
-            <input name="from" type="text" value="" maxlength="15" required/> <br /><br />
+            <input name="from" type="text" id="from" class="from" value="" maxlength="15" required/> <br /><br />
             <input type="submit" name="submit" value="Send" class="btn btn-success" /> 
         </form>
         </div>
@@ -100,6 +100,14 @@
             });
 
             $( "#sendWish" ).on( "submit", function(e) {
+               var message =  $('#message').val()
+               var from =  $('#from').val()
+               if(!(/\S/).test(message) || !(/\S/).test(from)) {
+                alert("stop trying to break the system it won't work")
+                return
+               }
+               
+            
                 var dataString = $(this).serialize();
                 $.ajax({
                 url:"/submit",
@@ -114,9 +122,13 @@
             });
 
             $( "#newTeacherForm" ).on( "submit", function(e) {
+                var name = $('#name').val();
+                if(!(/\S/).test(name)){
+                    alert("stop trying to break the system it won't work")
+                    return
+                   }
                 var dataString = $(this).serialize();
                 var title = dataString.replace('title=','')
-                var name = $('#name').val();
                 var options = $('#to option');
                 var values = $.map(options ,function(option) {
                     if(option.value == title+name)
